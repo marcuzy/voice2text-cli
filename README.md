@@ -7,6 +7,8 @@ This is a simple command-line utility for converting voice to text. It uses the 
 To install the necessary dependencies, run the following command:
 
 ```bash
+python3 -m venv ./.venv
+source ./.venv/bin/activate
 pip install -r requirements.txt
 ```
 
