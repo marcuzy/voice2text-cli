@@ -22,3 +22,9 @@ python app.py path_to_your_file.wav
 ```
 
 The script will print the transcription of the audio file to the console.
+
+Using `--model` you can specify the model to fit your specific goals. For example:
+
+```bash
+python app.py path_to_your_file.wav --model=large
+```

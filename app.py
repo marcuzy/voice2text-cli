@@ -1,23 +1,36 @@
 import argparse
+from enum import Enum
 import torch
 from transformers import pipeline
 from transformers.pipelines.audio_utils import ffmpeg_read
 
-# Parse command-line arguments
+
+class TranscriptionModel(Enum):
+    SMALL = "small"
+    MEDIUM = "medium"
+    LARGE = "large"
+
+model_mapping = {
+    TranscriptionModel.SMALL: "openai/whisper-small",
+    TranscriptionModel.MEDIUM: "openai/whisper-medium",
+    TranscriptionModel.LARGE: "openai/whisper-large-v3"
+}
+
 parser = argparse.ArgumentParser(description='Transcribe a wav file.')
 parser.add_argument('wavfile', type=str, help='The path to the wav file to transcribe.')
-args = parser.parse_args()
+parser.add_argument('--model', type=TranscriptionModel, choices=TranscriptionModel, default=TranscriptionModel.MEDIUM, help='The model to use for transcription.')
 
-MODEL_NAME = "openai/whisper-large-v3"
+args = parser.parse_args()
+model_name = model_mapping[args.model]
 BATCH_SIZE = 8
 
 device = 0 if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
 
-print(f"Using device: {device}")
+print(f"Using device: {device}, model: {model_name}")
 
 pipe = pipeline(
     task="automatic-speech-recognition",
-    model=MODEL_NAME,
+    model=model_name,
     chunk_length_s=30,
     device=device,
 )
