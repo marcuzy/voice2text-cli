@@ -10,8 +10,6 @@ args = parser.parse_args()
 
 MODEL_NAME = "openai/whisper-large-v3"
 BATCH_SIZE = 8
-FILE_LIMIT_MB = 1000
-YT_LENGTH_LIMIT_S = 3600  # limit to 1 hour YouTube files
 
 device = 0 if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
 
