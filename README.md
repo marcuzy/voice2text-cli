@@ -10,6 +10,8 @@ To install the necessary dependencies, run the following command:
 pip install -r requirements.txt
 ```
 
+Make sure all dependencies from `packages.txt` installed in your OS.
+
 ## Usage
 You can run the script with the path to a .wav file as a command-line argument. For example:
 
